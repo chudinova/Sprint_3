@@ -57,8 +57,8 @@ public class LoginTest {
 
     @Test
     public void courierCanNotLoginWithoutPassword() {
-        CourierCredentials credentialsWithNoLogin = new CourierCredentials(courier.getLogin(), "");
-        ValidatableResponse loginResponse = courierClient.login(credentialsWithNoLogin);
+        CourierCredentials credentialsWithNoPassword = new CourierCredentials(courier.getLogin(), "");
+        ValidatableResponse loginResponse = courierClient.login(credentialsWithNoPassword);
         int statusCode = loginResponse.extract().statusCode();
         String message = loginResponse.extract().path("message");
 

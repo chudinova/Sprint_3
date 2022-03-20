@@ -24,12 +24,12 @@ public class RegisterTest {
 
     @Test
     public void registerWithValidCredentials() {
-        ValidatableResponse loginResponse1 = courierClient.create(courier);
-        int statusCode = loginResponse1.extract().statusCode();
-        boolean ok = loginResponse1.extract().path("ok");
+        ValidatableResponse registerResponse1 = courierClient.create(courier);
+        int statusCode = registerResponse1.extract().statusCode();
+        boolean ok = registerResponse1.extract().path("ok");
 
-        ValidatableResponse loginResponse2 = courierClient.login(credentials);
-        courierId = loginResponse2.extract().path("id");
+        ValidatableResponse registerResponse2 = courierClient.login(credentials);
+        courierId = registerResponse2.extract().path("id");
 
 
         assertThat("Courier cannot register", statusCode, equalTo(201));
@@ -39,11 +39,11 @@ public class RegisterTest {
     @Test
     public void registerWithExitingLogin() {
         courierClient.create(courier);
-        ValidatableResponse loginResponse1 = courierClient.login(credentials);
-        courierId = loginResponse1.extract().path("id");
-        ValidatableResponse loginResponse2 = courierClient.create(courier);
-        int statusCode = loginResponse2.extract().statusCode();
-        String message = loginResponse2.extract().path("message");
+        ValidatableResponse registerResponse1 = courierClient.login(credentials);
+        courierId = registerResponse1.extract().path("id");
+        ValidatableResponse registerResponse2 = courierClient.create(courier);
+        int statusCode = registerResponse2.extract().statusCode();
+        String message = registerResponse2.extract().path("message");
 
         assertThat("Status code is incorrect", statusCode, equalTo(409));
         assertThat("Message is incorrect", message, equalTo("Этот логин уже используется. Попробуйте другой."));
@@ -64,9 +64,9 @@ public class RegisterTest {
     @Test
     public void registerWithNoLogin() {
         Courier courierWithNoLogin = new Courier("", courier.getPassword(), courier.getFirstName());
-        ValidatableResponse loginResponse = courierClient.create(courierWithNoLogin);
-        int statusCode = loginResponse.extract().statusCode();
-        String message = loginResponse.extract().path("message");
+        ValidatableResponse registerResponse = courierClient.create(courierWithNoLogin);
+        int statusCode = registerResponse.extract().statusCode();
+        String message = registerResponse.extract().path("message");
 
 
         assertThat("Status code is incorrect", statusCode, equalTo(400));

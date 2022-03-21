@@ -1,3 +1,7 @@
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
+import org.apache.commons.lang3.RandomStringUtils;
+
 public class Courier {
     private String login;
     private String password;
@@ -10,8 +14,18 @@ public class Courier {
         this.firstName = firstName;
     }
 
-    public Courier(String login) {
-        this.login = login;
+    @Step("Создание рандомного курьера")
+    public static Courier getRandom(){
+
+        String courierLogin = RandomStringUtils.randomAlphabetic(10);
+        String courierPassword = RandomStringUtils.randomAlphabetic(10);
+        String courierFirstName = RandomStringUtils.randomAlphabetic(10);
+
+        Allure.addAttachment("Логин: ", courierLogin);
+        Allure.addAttachment("Пароль: ", courierPassword);
+        Allure.addAttachment("Имя: ", courierFirstName);
+
+        return new Courier(courierLogin, courierPassword, courierFirstName);
     }
 
     public String getLogin() {

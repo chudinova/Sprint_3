@@ -1,3 +1,9 @@
+import io.qameta.allure.Step;
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class Order {
     private String firstName;
     private String lastName;
@@ -8,6 +14,9 @@ public class Order {
     private String deliveryDate;
     private String comment;
     private String[] color;
+
+    public Order() {
+    }
 
     public Order(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
         this.firstName = firstName;
@@ -30,6 +39,24 @@ public class Order {
         this.rentTime = rentTime;
         this.deliveryDate = deliveryDate;
         this.comment = comment;
+    }
+
+    @Step("Создание рандомного заказа")
+    public Order getRandom(){
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        String firstName = RandomStringUtils.randomAlphabetic(10);
+        String lastName = RandomStringUtils.randomAlphabetic(10);
+        String address = RandomStringUtils.randomAlphabetic(10);
+        String metroStation = RandomStringUtils.randomAlphabetic(10);
+        String phone = RandomStringUtils.randomAlphanumeric(11);
+        int rentTime = Integer.parseInt(RandomStringUtils.randomNumeric(3));
+        String deliveryDate = "2022-03-20";
+        String comment = RandomStringUtils.randomAlphabetic(10);
+
+
+        return new Order(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment);
     }
 
     public String getFirstName() {

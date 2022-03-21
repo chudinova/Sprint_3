@@ -8,7 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LoginTest {
     CourierClient courierClient;
-    CourierGenerator courierGenerator;
     Courier courier;
     int courierId;
     CourierCredentials credentials;
@@ -16,8 +15,7 @@ public class LoginTest {
     @Before
     public void setUp() {
         courierClient = new CourierClient();
-        courierGenerator = new CourierGenerator();
-        courier = courierGenerator.getRandom();
+        courier = courier.getRandom();
         credentials = new CourierCredentials(courier.getLogin(), courier.getPassword());
     }
 

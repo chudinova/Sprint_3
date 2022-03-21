@@ -14,7 +14,6 @@ public class OrderCreateTest {
     private String[] color;
     OrderClient orderClient;
     Order order;
-    OrderGenerator orderGenerator = new OrderGenerator();
     int orderTrack;
 
     public OrderCreateTest(String[] color) {
@@ -37,7 +36,8 @@ public class OrderCreateTest {
     }
     @Test
     public void OrderCreateWithValidData() {
-        order = orderGenerator.getRandom();
+        order = new Order();
+        order = order.getRandom();
         order.setColor(color);
         ValidatableResponse orderCreateResponse = orderClient.create(order);
         int statusCode = orderCreateResponse.extract().statusCode();
